@@ -7,12 +7,12 @@
 class CompassBelt
 {
     private:
-        HapticBelt* _belt;
-        long _onDuration;
-        long _lastOn;
-        int _lastDirection;
+        HapticBelt* belt_;
+        long onDuration_;
+        long lastOn_;
+        int lastDirection_;
     public:
         CompassBelt(HapticBelt* belt);
-        void Update(double heading);
+        void update(double heading);
 };
 #endif

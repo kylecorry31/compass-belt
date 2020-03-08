@@ -12,16 +12,18 @@
            225    135
                180 
 
+    Pins are listed clockwise, starting at index 0 equaling 0 degrees and ending with index 7 equaling 315 degrees.
+
 */
 
 class HapticBelt
 {
     private:
-        int _haptic_pins[8];
-        bool IsDirectionValid(int direction);
+        int haptic_pins_[8];
+        bool isDirectionValid(int direction);
     public:
         HapticBelt(int haptics[8]);
-        void On(int direction);
-        void Off(int direction);
+        void on(int direction);
+        void off(int direction);
 };
 #endif
