@@ -1,2 +1,2 @@
-# synaptic-belt
- An Arduino based sensor belt to add new senses to the human body
+# Compass Belt
+ An Arduino project which uses a belt with vibration motors to allow the user to feel where North is.
