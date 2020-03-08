@@ -3,11 +3,12 @@
 
 HapticBelt::HapticBelt(int haptics[8])
 {
-    memccpy(haptic_pins_, haptics, 8, sizeof(int));
     for (int i = 0; i < 8; i++)
     {
+        haptic_pins_[i] = haptics[i];
         pinMode(haptic_pins_[i], OUTPUT);
     }
+    
 }
 
 bool HapticBelt::isDirectionValid(int direction)

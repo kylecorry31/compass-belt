@@ -8,11 +8,14 @@ class CompassBelt
 {
     private:
         HapticBelt* belt_;
-        long onDuration_;
+        unsigned long onDuration_;
         long lastOn_;
         int lastDirection_;
+        bool alwaysOn_ = false;
     public:
         CompassBelt(HapticBelt* belt);
         void update(double heading);
+        void setAlwaysOn(bool alwaysOn);
+        bool isAlwaysOn();
 };
 #endif
