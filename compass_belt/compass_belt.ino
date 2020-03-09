@@ -16,7 +16,7 @@ const int northEastPin = 10;
 const int alwaysOnButtonPin = 13;
 
 // Geomagnetic declination (set this based on your location)
-const float declination = 13;
+const float declination = -13;
 
 // ----- END CONFIGURATION -----
 
