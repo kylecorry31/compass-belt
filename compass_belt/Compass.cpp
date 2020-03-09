@@ -1,4 +1,9 @@
 #include "Compass.h"
+
+Compass::Compass(float declination){
+  declination_ = declination;
+}
+
 void Compass::begin(){
   while(imu_.begin() < 0);
   resetCalibration();
