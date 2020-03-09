@@ -30,7 +30,7 @@ Compass compass{declination};
 
 void setup()
 {
-  pinMode(alwaysOnPin, INPUT);
+  pinMode(alwaysOnButtonPin, INPUT);
   compass.begin();
   Serial.begin(9600);
   // delay(10000);
