@@ -7,13 +7,14 @@
     A haptic belt with the following directions:
 
                 0
-           315     45
-        270           90
-           225    135
+            45     315
+         90           270
+           135     225
                180 
 
-    Pins are listed clockwise, starting at index 0 equaling 0 degrees and ending with index 7 equaling 315 degrees.
+    The pins in the constructor match up to the diagram above clockwise starting at 0.
 
+    Note: Because the belt displays where North is, vibrating 270 (middle right) will correspond to West, not East.
 */
 
 class HapticBelt

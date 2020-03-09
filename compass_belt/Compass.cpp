@@ -108,7 +108,7 @@ float Compass::getHeading(){
   float y = imu_.getMagY_uT();
   float z = magYFilter_.filter(imu_.getMagZ_uT());
   
-  float heading = atan2(z, x) * 180 / PI; 
+  float heading = atan2(z, x) * 180 / PI + declination_; 
 
   if (heading < 0){
     heading += 360;  

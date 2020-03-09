@@ -7,6 +7,13 @@
 #include <KalmanFilter.h>
 
 class Compass {
+  public:
+    Compass(float declination);
+    void begin();
+    float getHeading();
+    void activeCalibrate();
+    void resetCalibration();  
+    void calibrate();
   private:
     float xb_;
     float yb_;
@@ -26,18 +33,13 @@ class Compass {
     float yMax_ = -1000;
     float zMin_ = 1000;
     float zMax_ = -1000;
+    float declination_ = 0;
     bool activeCalibration_ = false;
     long calibrationResetInverval_ = 1000L * 60L * 60L; // 1 Hour
     long lastCalibrationTime_ = 0L;
     MPU9250 imu_ {Wire, 0x68};
     KalmanFilter magXFilter_ {15, 15, 0, 0.05};
     KalmanFilter magYFilter_ {15, 15, 0, 0.05};
-  public:
-    void begin();
-    float getHeading();
-    void activeCalibrate();
-    void resetCalibration();  
-    void calibrate();
 };
 
 #endif
