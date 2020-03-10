@@ -18,10 +18,13 @@ const int alwaysOnButtonPin = 13;
 // Geomagnetic declination (set this based on your location)
 const float declination = -13;
 
+const long doublePressDurationMillis = 500;
+
 // ----- END CONFIGURATION -----
 
 int belt_pins[8] = {northPin, northWestPin, westPin, southWestPin, southPin, southEastPin, eastPin, northEastPin};
 
+long lastPressedTime = -10000;
 bool wasOn = false;
 
 HapticBelt belt{belt_pins};
@@ -43,7 +46,12 @@ void loop()
 {
   bool isOn = digitalRead(alwaysOnButtonPin);
   if (!wasOn && isOn){
-    compassBelt.setAlwaysOn(!compassBelt.isAlwaysOn());
+    if (millis() - lastPressedTime <= doublePressDurationMillis){
+      compassBelt.setAlwaysOn(!compassBelt.isAlwaysOn());
+      lastPressedTime = -10000;
+    } else {
+      lastPressedTime = millis();
+    }
   }
 
   wasOn = isOn;
