@@ -21,12 +21,12 @@ class Compass {
     float xs_;
     float ys_;
     float zs_;
-    float defaultXb_ = 32.87;
-    float defaultYb_ = 53.86;
-    float defaultZb_ = 2.67;
-    float defaultXs_ = 25.37;
-    float defaultYs_ = 7.98;
-    float defaultZs_ = 31.43;
+    float defaultXb_ = 34.83;
+    float defaultYb_ = 62.37;
+    float defaultZb_ = 1.38;
+    float defaultXs_ = 22.33;
+    float defaultYs_ = 4.12;
+    float defaultZs_ = 22.21;
     float xMin_ = 1000;
     float xMax_ = -1000;
     float yMin_ = 1000;
