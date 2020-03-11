@@ -25,7 +25,7 @@ const long doublePressDurationMillis = 500L;
 const unsigned long vibrationDurationMillis = 200UL;
 
 // The default vibration interval in milliseconds
-const unsigned long vibrationInvervalMillis = 20UL * 1000UL;
+const unsigned long vibrationInvervalMillis = 60UL * 1000UL;
 
 // ----- END CONFIGURATION -----
 
