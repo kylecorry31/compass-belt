@@ -6,16 +6,19 @@
 
 class CompassBelt
 {
-    private:
-        HapticBelt* belt_;
-        unsigned long onDuration_;
-        long lastOn_;
-        int lastDirection_;
-        bool alwaysOn_ = false;
     public:
-        CompassBelt(HapticBelt* belt);
+        CompassBelt(HapticBelt* belt, unsigned long vibrationDuration, unsigned long vibrationInverval);
         void update(double heading);
         void setAlwaysOn(bool alwaysOn);
         bool isAlwaysOn();
+    private:
+        HapticBelt* belt_;
+        unsigned long onDuration_;
+        unsigned long vibrationInterval_;
+        long lastOn_;
+        int lastDirection_;
+        bool alwaysOn_ = false;
+        bool shouldStopVibrating();
+        bool shouldStartVibrating();
 };
 #endif

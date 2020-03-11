@@ -16,19 +16,26 @@ const int northEastPin = 10;
 const int alwaysOnButtonPin = 13;
 
 // Geomagnetic declination (set this based on your location)
-const float declination = -13;
+const float declination = -14;
 
-const long doublePressDurationMillis = 500;
+// The maximum duration (ms) between presses to be considered a double presses 
+const long doublePressDurationMillis = 500L;
+
+// The default vibration duration in milliseconds
+const unsigned long vibrationDurationMillis = 200UL;
+
+// The default vibration interval in milliseconds
+const unsigned long vibrationInvervalMillis = 20UL * 1000UL;
 
 // ----- END CONFIGURATION -----
 
 int belt_pins[8] = {northPin, northWestPin, westPin, southWestPin, southPin, southEastPin, eastPin, northEastPin};
 
-long lastPressedTime = -10000;
+long lastPressedTime = -10000L;
 bool wasOn = false;
 
 HapticBelt belt{belt_pins};
-CompassBelt compassBelt{&belt};
+CompassBelt compassBelt{&belt, vibrationDurationMillis, vibrationInvervalMillis};
 Compass compass{declination};
 
 void setup()
@@ -36,10 +43,10 @@ void setup()
   pinMode(alwaysOnButtonPin, INPUT);
   compass.begin();
   Serial.begin(9600);
-  // delay(10000);
-  // Serial.println("Calibrating");
-  // compass.calibrate();
-  // delay(10000);
+//  delay(1000);
+//  Serial.println("Calibrating");
+//  compass.calibrate();
+//  delay(10000);
 }
 
 void loop()

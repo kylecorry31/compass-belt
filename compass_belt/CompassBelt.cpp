@@ -1,9 +1,10 @@
 #include "CompassBelt.h"
 
-CompassBelt::CompassBelt(HapticBelt* belt)
+CompassBelt::CompassBelt(HapticBelt* belt, unsigned long vibrationDuration, unsigned long vibrationInverval)
 {
     belt_ = belt;
-    onDuration_ = 200L;
+    onDuration_ = vibrationDuration;
+    vibrationInterval_ = vibrationInverval;
     lastOn_ = 0;
     lastDirection_ = -1;
 }
@@ -45,11 +46,21 @@ void CompassBelt::update(double heading)
         lastOn_ = millis();
     }
 
-    if (!alwaysOn_ && millis() - lastOn_ >= onDuration_)
+    if(shouldStartVibrating()) {
+        belt_->on(direction);
+        lastOn_ = millis();
+    } else if (shouldStopVibrating())
     {
         belt_->off(direction);
-    } else if(alwaysOn_) {
-        belt_->on(direction);
-    }
+    } 
 
+}
+
+bool CompassBelt::shouldStopVibrating(){
+    return !alwaysOn_ && millis() - lastOn_ >= onDuration_;
+}
+
+bool CompassBelt::shouldStartVibrating(){
+    long timeSinceOn = millis() - lastOn_;
+    return alwaysOn_ || timeSinceOn >= onDuration_ + vibrationInterval_;
 }
