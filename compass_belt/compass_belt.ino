@@ -27,16 +27,21 @@ const unsigned long vibrationDurationMillis = 200UL;
 // The default vibration interval in milliseconds
 const unsigned long vibrationInvervalMillis = 60UL * 1000UL;
 
+const unsigned long serialKeepDurationMillis = 10UL * 1000UL;
+
 // ----- END CONFIGURATION -----
 
 int belt_pins[8] = {northPin, northWestPin, westPin, southWestPin, southPin, southEastPin, eastPin, northEastPin};
 
 long lastPressedTime = -10000L;
+long lastSerialRecv = -10000L;
+float lastSerialHeading = 0.0f;
 bool wasOn = false;
 
 HapticBelt belt{belt_pins};
 CompassBelt compassBelt{&belt, vibrationDurationMillis, vibrationInvervalMillis};
 Compass compass{declination};
+
 
 void setup()
 {
@@ -64,6 +69,17 @@ void loop()
   wasOn = isOn;
 
   float heading = compass.getHeading();
-  Serial.println(heading);
+
+  if (Serial.available() > 0) {
+    String serialHeading = Serial.readString();
+    lastSerialHeading = serialHeading.toFloat();
+    lastSerialRecv = millis();
+  }
+
+   if (millis() - lastSerialRecv < serialKeepDurationMillis){
+    heading = lastSerialHeading;
+   }
+  
+  // Serial.println(heading);
   compassBelt.update(heading);  
 }
