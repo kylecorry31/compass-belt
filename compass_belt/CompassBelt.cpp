@@ -42,12 +42,12 @@ void CompassBelt::update(double heading)
             belt_->off(lastDirection_);
         }
         lastDirection_ = direction;
-        belt_->on(direction);
+        belt_->on(direction, 255);
         lastOn_ = millis();
     }
 
     if(shouldStartVibrating()) {
-        belt_->on(direction);
+        belt_->on(direction, 255);
         lastOn_ = millis();
     } else if (shouldStopVibrating())
     {

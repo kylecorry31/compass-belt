@@ -24,7 +24,7 @@ class HapticBelt
         bool isDirectionValid(int direction);
     public:
         HapticBelt(int haptics[8]);
-        void on(int direction);
+        void on(int direction, int power);
         void off(int direction);
 };
 #endif

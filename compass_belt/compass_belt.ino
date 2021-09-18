@@ -83,3 +83,6 @@ void loop()
   // Serial.println(heading);
   compassBelt.update(heading);  
 }
+
+// Double press -> toggle always on
+// Hold for 10 seconds -> toggle calibration
