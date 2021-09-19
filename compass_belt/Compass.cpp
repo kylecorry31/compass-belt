@@ -60,7 +60,7 @@ void Compass::calibrate(){
 
   resetCalibration();
 
-  for (int i = 0; i < 1000; i++)
+  for (int i = 0; i < 500; i++)
   {
     imu_.readSensor();
     float x = raw(imu_.getMagX_uT(), xb_, xs_);

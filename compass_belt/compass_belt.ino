@@ -1,6 +1,7 @@
 #include "HapticBelt.h"
 #include "CompassBelt.h"
 #include "Compass.h"
+#include "Button.h"
 
 // ----- CONFIGURATION -----
 
@@ -16,10 +17,7 @@ const int northEastPin = 10;
 const int alwaysOnButtonPin = 13;
 
 // Geomagnetic declination (set this based on your location)
-const float declination = -14;
-
-// The maximum duration (ms) between presses to be considered a double presses 
-const long doublePressDurationMillis = 500L;
+const float declination = 0;
 
 // The default vibration duration in milliseconds
 const unsigned long vibrationDurationMillis = 200UL;
@@ -32,11 +30,10 @@ const unsigned long serialKeepDurationMillis = 10UL * 1000UL;
 // ----- END CONFIGURATION -----
 
 int belt_pins[8] = {northPin, northWestPin, westPin, southWestPin, southPin, southEastPin, eastPin, northEastPin};
+Button button{alwaysOnButtonPin};
 
-long lastPressedTime = -10000L;
 long lastSerialRecv = -10000L;
 float lastSerialHeading = 0.0f;
-bool wasOn = false;
 
 HapticBelt belt{belt_pins};
 CompassBelt compassBelt{&belt, vibrationDurationMillis, vibrationInvervalMillis};
@@ -45,28 +42,20 @@ Compass compass{declination};
 
 void setup()
 {
-  pinMode(alwaysOnButtonPin, INPUT);
   compass.begin();
   Serial.begin(9600);
-//  delay(1000);
-//  Serial.println("Calibrating");
-//  compass.calibrate();
-//  delay(10000);
 }
 
 void loop()
 {
-  bool isOn = digitalRead(alwaysOnButtonPin);
-  if (!wasOn && isOn){
-    if (millis() - lastPressedTime <= doublePressDurationMillis){
-      compassBelt.setAlwaysOn(!compassBelt.isAlwaysOn());
-      lastPressedTime = -10000;
-    } else {
-      lastPressedTime = millis();
-    }
+  ButtonState buttonState = button.read();
+  if (buttonState.isDouble){
+    compassBelt.setAlwaysOn(!compassBelt.isAlwaysOn());
   }
 
-  wasOn = isOn;
+  if (buttonState.isLong){
+    calibrate();  
+  }
 
   float heading = compass.getHeading();
 
@@ -84,5 +73,19 @@ void loop()
   compassBelt.update(heading);  
 }
 
-// Double press -> toggle always on
-// Hold for 10 seconds -> toggle calibration
+void calibrate(){
+  for (int i = 0; i < 360; i += 45){
+    compassBelt.update(i);
+    delay(200);  
+  }
+  compassBelt.off();
+  delay(1000);
+  Serial.println("Calibrating");
+  compass.calibrate();
+  delay(10020);
+  for (int i = 360; i > 0; i -= 45){
+    compassBelt.update(i);
+    delay(200);  
+  }
+  compassBelt.off();
+}

@@ -9,6 +9,7 @@ class CompassBelt
     public:
         CompassBelt(HapticBelt* belt, unsigned long vibrationDuration, unsigned long vibrationInverval);
         void update(double heading);
+        void off();
         void setAlwaysOn(bool alwaysOn);
         bool isAlwaysOn();
     private:

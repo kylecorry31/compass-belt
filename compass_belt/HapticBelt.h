@@ -26,5 +26,6 @@ class HapticBelt
         HapticBelt(int haptics[8]);
         void on(int direction, int power);
         void off(int direction);
+        void off();
 };
 #endif

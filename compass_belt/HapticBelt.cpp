@@ -33,6 +33,14 @@ void HapticBelt::on(int direction, int power)
     }
 }
 
+void HapticBelt::off()
+{
+  for (int i = 0; i < 8; i++)
+  {
+      digitalWrite(haptic_pins_[i], LOW);
+  }
+}
+
 void HapticBelt::off(int direction)
 {
     if (!isDirectionValid(direction))

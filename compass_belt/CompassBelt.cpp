@@ -17,6 +17,11 @@ bool CompassBelt::isAlwaysOn(){
     return alwaysOn_;
 }
 
+void CompassBelt::off()
+{
+  belt_->off();
+}
+
 void CompassBelt::update(double heading)
 {
 
